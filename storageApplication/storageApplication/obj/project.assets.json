@@ -5883,26 +5883,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hanna\\.nuget\\packages\\": {}
+    "/Users/hz/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hanna\\Source\\Repos\\Distributed-Storage-Project\\Storage-Layer\\storageApplication\\storageApplication\\storageApplication.csproj",
+      "projectUniqueName": "/Users/hz/Documents/梅努斯/335/Storage-Layer/storageApplication/storageApplication/storageApplication.csproj",
       "projectName": "storageApplication",
-      "projectPath": "C:\\Users\\hanna\\Source\\Repos\\Distributed-Storage-Project\\Storage-Layer\\storageApplication\\storageApplication\\storageApplication.csproj",
-      "packagesPath": "C:\\Users\\hanna\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hanna\\Source\\Repos\\Distributed-Storage-Project\\Storage-Layer\\storageApplication\\storageApplication\\obj\\",
+      "projectPath": "/Users/hz/Documents/梅努斯/335/Storage-Layer/storageApplication/storageApplication/storageApplication.csproj",
+      "packagesPath": "/Users/hz/.nuget/packages/",
+      "outputPath": "/Users/hz/Documents/梅努斯/335/Storage-Layer/storageApplication/storageApplication/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\hanna\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/hz/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5961,7 +5959,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
       }
     }
   }
