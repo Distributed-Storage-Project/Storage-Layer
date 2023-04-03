@@ -3,28 +3,55 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Data;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Collections;
+using Models;
+using System.Text.Json.Nodes;
 using Newtonsoft.Json.Linq;
-using Microsoft.Data.Sqlite;
-
 
 namespace storageApplication.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class QueryController : ControllerBase
     {
-        [HttpPost("query")]
-        public ActionResult query()
+        protected readonly IRepository _repository;
+
+        public QueryController(IRepository repository)
         {
-            var data = new List<List<string>>
+            _repository = repository;
+        }
+
+        [HttpPost(Name = "query")]
+        public QueryResponse Query(String query)
+        {
+            QueryResponse response = new QueryResponse();
+            // check query type by prefix
+            string tempCmd = query.ToLower();
+            bool isQuery = tempCmd.StartsWith("select");
+            try
             {
-            new List<string> { "value 1", "value 2" },
-            new List<string> { "value 3", "value 4" }
-            };
+                if (isQuery)
+                {
+                    JsonNode array = _repository.query(query);
+                    response.data = array;
+                }
+                else
+                {
+                    bool res = _repository.insert(query);
+                    response.isSucess = res;
+                }
+            }
+            catch (Exception e)
+            {
+                response.isSucess = false;
+                response.message = e.Message;
+                Console.WriteLine(e.StackTrace);
+            }
 
-            var results = new { Data = data };
-
-            return Ok(results);
+            return response;
         }
 
     }
