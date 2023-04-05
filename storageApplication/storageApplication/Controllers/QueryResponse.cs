@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Json.Nodes;
 using Newtonsoft.Json.Linq;
+using storageApplication.Repository;
 
 namespace storageApplication.Controllers
 {
@@ -10,10 +11,16 @@ namespace storageApplication.Controllers
 		{
 		}
 
-		/// <summary>
-		/// return status 
-		/// </summary>
-		public bool isSucess { get; set; } = true;
+        public QueryResponse(bool isSucess, string message)
+        {
+			this.isSucess = isSucess;
+			this.message = message;
+        }
+
+        /// <summary>
+        /// return status 
+        /// </summary>
+        public bool isSucess { get; set; } = true;
 
 		/// <summary>
 		/// error message 
@@ -23,7 +30,7 @@ namespace storageApplication.Controllers
 		/// <summary>
 		/// return data
 		/// </summary>
-        public JsonNode data { get; set; }
+        public List<List<string>> data { get; set; }
 
     }
 }

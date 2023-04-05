@@ -6,9 +6,9 @@ using System.Data;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Collections;
-using Models;
 using System.Text.Json.Nodes;
 using Newtonsoft.Json.Linq;
+using storageApplication.Repository;
 
 namespace storageApplication.Controllers
 {
@@ -25,24 +25,17 @@ namespace storageApplication.Controllers
         }
 
         [HttpPost(Name = "query")]
-        public QueryResponse Query(String query)
+        public QueryResponse Query([FromBody] QueryRequest request)
         {
+            string? query = request.query;
+            if (string.IsNullOrEmpty(query) || !query.ToLower().StartsWith("select")) {
+                return new QueryResponse(false, "Query is invalid!");
+            }
             QueryResponse response = new QueryResponse();
-            // check query type by prefix
-            string tempCmd = query.ToLower();
-            bool isQuery = tempCmd.StartsWith("select");
             try
             {
-                if (isQuery)
-                {
-                    JsonNode array = _repository.query(query);
-                    response.data = array;
-                }
-                else
-                {
-                    bool res = _repository.insert(query);
-                    response.isSucess = res;
-                }
+                _repository.query(query);
+                // todo
             }
             catch (Exception e)
             {

@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using Models;
-using Repository;
+using storageApplication.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
