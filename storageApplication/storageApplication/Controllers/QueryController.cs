@@ -24,6 +24,7 @@ namespace storageApplication.Controllers
             _repository = repository;
         }
 
+
         [HttpPost(Name = "query")]
         public QueryResponse Query([FromBody] QueryRequest request)
         {
@@ -35,6 +36,7 @@ namespace storageApplication.Controllers
             try
             {
                 _repository.query(query);
+
                 // todo
             }
             catch (Exception e)
@@ -46,6 +48,48 @@ namespace storageApplication.Controllers
 
             return response;
         }
+        //jay below
+        public void query(string query)
+        {
+            List<List<string>> results = new List<List<string>>();
+
+            using (SqliteConnection conn = new SqliteConnection("Data Source=temp335.db"))
+            {
+                using (SqliteCommand command = new SqliteCommand())
+                {
+                    try
+                    {
+                        command.Connection = conn;
+                        conn.Open();
+                        command.CommandText = query;
+                        SqliteDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            List<string> row = new List<string>();
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                Type type = reader.GetFieldType(i);
+                                string key = reader.GetName(i);
+                                string? value = reader[i] == null ? "" : reader[i].ToString();
+                                value = String.Format(value, type);
+                                row.Add(value);
+                            }
+                            results.Add(row);
+                        }
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+
+                }
+            }
+
+            QueryResponse response = new QueryResponse();
+            response.data = results;
+        }
+
 
     }
 }
