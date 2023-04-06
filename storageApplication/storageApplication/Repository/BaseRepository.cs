@@ -39,12 +39,13 @@ namespace storageApplication.Repository
             }
         }
 
-        public void query(string query)
+        public List<List<string>> query(string query)
         {
             using (SqliteConnection conn = new SqliteConnection("Data Source=temp335.db"))
             {
                 using (SqliteCommand command = new SqliteCommand())
                 {
+                    List<List<string>> res = new List<List<string>>();
                     try
                     {
                         command.Connection = conn;
@@ -54,21 +55,23 @@ namespace storageApplication.Repository
 
                         while (reader.Read())
                         {
+                            List<string> list = new List<string>();
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
                                 Type type = reader.GetFieldType(i);
                                 string key = reader.GetName(i);
                                 string? value = reader[i] == null ? "" : reader[i].ToString();
                                 value = String.Format(value, type);
-                                // todo
+                                list.Add(value);
                             }
+                            res.Add(list);
                         }
                     }
                     finally
                     {
                         conn.Close();
                     }
-
+                    return res;
                 }
             }
         }

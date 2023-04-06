@@ -10,7 +10,7 @@ namespace storageApplication.Repository
 	{
         bool insert(String query);
 
-        void query(String query);
+        List<List<string>> query(String query);
     }
 }
 
