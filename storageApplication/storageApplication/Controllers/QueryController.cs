@@ -29,7 +29,7 @@ namespace storageApplication.Controllers
         public QueryResponse Query([FromBody] QueryRequest request)
         {
             string? query = request.query;
-            if (string.IsNullOrEmpty(query) || !query.ToLower().StartsWith("select")) {
+            if (string.IsNullOrEmpty(query) || (!query.ToLower().StartsWith("select") && !query.ToLower().StartsWith("insert into") && !query.ToLower().StartsWith("delete")) && !query.ToLower().StartsWith("create table") && !query.ToLower().StartsWith("drop table")) {
                 return new QueryResponse(false, "Query is invalid!");
             }
             QueryResponse response = new QueryResponse();
